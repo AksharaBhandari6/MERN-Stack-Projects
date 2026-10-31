@@ -1,0 +1,951 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" id="themeColor" />
+    <title>JobConnect — Find your dream job now</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        corePlugins: { preflight: false },
+      };
+    </script>
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("jobconnect-theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const theme = savedTheme || (prefersDark ? "dark" : "light");
+
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap JS bundle -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <!-- ===================== Top Navbar ===================== -->
+    <nav class="navbar navbar-expand-lg nk-navbar sticky-top">
+      <div class="container">
+        <a
+          class="navbar-brand d-flex align-items-center gap-2 fw-bold"
+          href="#home"
+        >
+          <span class="brand-logo"
+            ><i class="bi bi-briefcase-fill" aria-hidden="true"></i
+          ></span>
+          <span>Job<span class="text-primary">Connect</span></span>
+        </a>
+
+        <button
+          id="themeToggle"
+          type="button"
+          aria-label="Switch to dark mode"
+          aria-pressed="false"
+          class="theme-toggle inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 dark:focus-visible:outline-indigo-300"
+        >
+          <i
+            id="themeIcon"
+            class="bi bi-moon-stars-fill"
+            aria-hidden="true"
+          ></i>
+          <span id="themeLabel">Dark mode</span>
+        </button>
+
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNav"
+          aria-controls="mainNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-1 nk-mainnav">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#jobs"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >Jobs</a
+              >
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#jobs">Browse Jobs</a></li>
+                <li>
+                  <a class="dropdown-item" href="#categories"
+                    >Jobs by Category</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#companies">Jobs by Company</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#companies"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >Companies</a
+              >
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#companies">Top Companies</a>
+                </li>
+                <li><a class="dropdown-item" href="#companies">Reviews</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#services"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                >Services</a
+              >
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#services">Resume Writing</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#services"
+                    >Priority Applicant</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <form
+            class="d-none d-lg-flex nk-nav-search me-3"
+            role="search"
+            onsubmit="return false;"
+          >
+            <span class="input-group-text bg-transparent border-0 ps-2">
+              <i class="bi bi-search" aria-hidden="true"></i>
+            </span>
+            <label for="navSearch" class="visually-hidden"
+              >Search jobs here</label
+            >
+            <input
+              id="navSearch"
+              type="text"
+              class="form-control border-0"
+              placeholder="Search jobs here"
+            />
+          </form>
+
+          <div
+            class="d-flex gap-2 flex-column flex-lg-row align-items-lg-center"
+          >
+            <a href="#" class="btn btn-outline-primary rounded-pill px-3"
+              >Login</a
+            >
+            <a href="#" class="btn btn-primary rounded-pill px-3">Register</a>
+            <a
+              href="#services"
+              class="nav-link nk-employer-link d-flex align-items-center gap-1"
+            >
+              <span>For employers</span>
+              <i class="bi bi-chevron-down small" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- ===================== Hero + Search ===================== -->
+      <header id="home" class="nk-hero">
+        <div class="container">
+          <div class="text-center mb-4">
+            <h1 class="display-5 fw-800 mb-2">
+              Find your <span class="text-primary">dream job</span> now
+            </h1>
+            <p class="lead text-secondary mb-0">
+              5 lakh+ jobs for you to explore
+            </p>
+          </div>
+
+          <form
+            class="nk-search-bar shadow-sm mx-auto"
+            role="search"
+            onsubmit="return false;"
+          >
+            <div class="row g-0 align-items-center flex-column flex-lg-row">
+              <div class="col">
+                <div class="nk-search-field">
+                  <i class="bi bi-search text-secondary" aria-hidden="true"></i>
+                  <label for="heroSkill" class="visually-hidden"
+                    >Skills, designations, companies</label
+                  >
+                  <input
+                    id="heroSkill"
+                    type="text"
+                    class="form-control border-0"
+                    placeholder="Enter skills / designations / companies"
+                  />
+                </div>
+              </div>
+              <div class="col nk-search-divider">
+                <div class="nk-search-field">
+                  <i
+                    class="bi bi-briefcase text-secondary"
+                    aria-hidden="true"
+                  ></i>
+                  <label for="heroExp" class="visually-hidden"
+                    >Experience</label
+                  >
+                  <select id="heroExp" class="form-select border-0">
+                    <option value="" selected>Select experience</option>
+                    <option>Fresher</option>
+                    <option>1 year</option>
+                    <option>2 years</option>
+                    <option>3 years</option>
+                    <option>5+ years</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col nk-search-divider">
+                <div class="nk-search-field">
+                  <i
+                    class="bi bi-geo-alt text-secondary"
+                    aria-hidden="true"
+                  ></i>
+                  <label for="heroLoc" class="visually-hidden">Location</label>
+                  <input
+                    id="heroLoc"
+                    type="text"
+                    class="form-control border-0"
+                    placeholder="Enter location"
+                  />
+                </div>
+              </div>
+              <div class="col-12 col-lg-auto nk-search-btn-wrap">
+                <button
+                  type="submit"
+                  class="btn btn-primary nk-search-btn w-100"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Trust logos -->
+          <div class="nk-trust mt-5">
+            <p class="text-center text-secondary small mb-3">
+              Trusted by leading companies hiring now
+            </p>
+            <div
+              class="d-flex flex-wrap justify-content-center align-items-center gap-4 nk-trust-logos"
+            >
+              <span class="nk-trust-logo">Acme Corp</span>
+              <span class="nk-trust-logo">Nova Studio</span>
+              <span class="nk-trust-logo">BlueLeaf</span>
+              <span class="nk-trust-logo">Zenith</span>
+              <span class="nk-trust-logo">Orbit Labs</span>
+              <span class="nk-trust-logo">Pinnacle</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===================== Quick Links / Explore Chips ===================== -->
+      <section class="nk-quicklinks py-4">
+        <div class="container">
+          <div class="d-flex flex-wrap justify-content-center gap-2">
+            <a href="#jobs" class="nk-chip">Remote</a>
+            <a href="#jobs" class="nk-chip">MNC</a>
+            <a href="#jobs" class="nk-chip">Startup</a>
+            <a href="#jobs" class="nk-chip">Internship</a>
+            <a href="#jobs" class="nk-chip">Fresher</a>
+            <a href="#jobs" class="nk-chip">Work from home</a>
+            <a href="#jobs" class="nk-chip">Part-time</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Jobs by Category ===================== -->
+      <section id="categories" class="py-5">
+        <div class="container">
+          <div
+            class="d-flex flex-wrap justify-content-between align-items-end mb-4"
+          >
+            <div>
+              <h2 class="h3 fw-800 mb-1">Discover jobs across popular roles</h2>
+              <p class="text-secondary mb-0">
+                Select a role and we'll show you relevant jobs for it!
+              </p>
+            </div>
+          </div>
+          <div class="row g-3">
+            <div class="col-sm-6 col-lg-4">
+              <a href="#jobs" class="nk-role-card">
+                <span class="nk-role-icon"
+                  ><i class="bi bi-code-slash" aria-hidden="true"></i
+                ></span>
+                <span class="nk-role-info">
+                  <strong>Software Developer</strong>
+                  <small class="text-secondary">12.4k+ Jobs</small>
+                </span>
+                <i
+                  class="bi bi-chevron-right nk-role-arrow"
+                  aria-hidden="true"
+                ></i>
+              </a>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <a href="#jobs" class="nk-role-card">
+                <span class="nk-role-icon"
+                  ><i class="bi bi-palette" aria-hidden="true"></i
+                ></span>
+                <span class="nk-role-info">
+                  <strong>Product Designer</strong>
+                  <small class="text-secondary">3.1k+ Jobs</small>
+                </span>
+                <i
+                  class="bi bi-chevron-right nk-role-arrow"
+                  aria-hidden="true"
+                ></i>
+              </a>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <a href="#jobs" class="nk-role-card">
+                <span class="nk-role-icon"
+                  ><i class="bi bi-bar-chart" aria-hidden="true"></i
+                ></span>
+                <span class="nk-role-info">
+                  <strong>Data Analyst</strong>
+                  <small class="text-secondary">5.8k+ Jobs</small>
+                </span>
+                <i
+                  class="bi bi-chevron-right nk-role-arrow"
+                  aria-hidden="true"
+                ></i>
+              </a>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <a href="#jobs" class="nk-role-card">
+                <span class="nk-role-icon"
+                  ><i class="bi bi-megaphone" aria-hidden="true"></i
+                ></span>
+                <span class="nk-role-info">
+                  <strong>Digital Marketing</strong>
+                  <small class="text-secondary">4.2k+ Jobs</small>
+                </span>
+                <i
+                  class="bi bi-chevron-right nk-role-arrow"
+                  aria-hidden="true"
+                ></i>
+              </a>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <a href="#jobs" class="nk-role-card">
+                <span class="nk-role-icon"
+                  ><i class="bi bi-gear" aria-hidden="true"></i
+                ></span>
+                <span class="nk-role-info">
+                  <strong>DevOps Engineer</strong>
+                  <small class="text-secondary">2.6k+ Jobs</small>
+                </span>
+                <i
+                  class="bi bi-chevron-right nk-role-arrow"
+                  aria-hidden="true"
+                ></i>
+              </a>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <a href="#jobs" class="nk-role-card">
+                <span class="nk-role-icon"
+                  ><i class="bi bi-people" aria-hidden="true"></i
+                ></span>
+                <span class="nk-role-info">
+                  <strong>HR &amp; Recruitment</strong>
+                  <small class="text-secondary">1.9k+ Jobs</small>
+                </span>
+                <i
+                  class="bi bi-chevron-right nk-role-arrow"
+                  aria-hidden="true"
+                ></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Featured Jobs ===================== -->
+      <section id="jobs" class="py-5 bg-light-subtle">
+        <div class="container">
+          <div class="text-center mb-5">
+            <h2 class="h3 fw-800 mb-1">Latest openings for you</h2>
+            <p class="text-secondary mb-0">
+              Hand-picked roles from companies hiring right now.
+            </p>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+              <article class="job-card card h-100 rounded-4 shadow-sm">
+                <div class="card-body p-4 d-flex flex-column">
+                  <div class="d-flex align-items-center gap-3 mb-3">
+                    <span class="company-logo bg-primary-subtle text-primary"
+                      >AC</span
+                    >
+                    <div>
+                      <h3 class="h6 mb-0">Senior Frontend Developer</h3>
+                      <small class="text-secondary">Acme Corp</small>
+                    </div>
+                  </div>
+                  <span
+                    class="badge badge-type rounded-pill align-self-start mb-3"
+                    >Full-time</span
+                  >
+                  <p class="text-secondary small mb-3">
+                    Build delightful, accessible interfaces for millions of
+                    users using React and modern tooling.
+                  </p>
+                  <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="tag">Remote</span>
+                    <span class="tag">React</span>
+                    <span class="tag">TypeScript</span>
+                  </div>
+                  <a href="#" class="btn btn-primary mt-auto">Apply Now</a>
+                </div>
+              </article>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <article class="job-card card h-100 rounded-4 shadow-sm">
+                <div class="card-body p-4 d-flex flex-column">
+                  <div class="d-flex align-items-center gap-3 mb-3">
+                    <span class="company-logo bg-primary-subtle text-primary"
+                      >NV</span
+                    >
+                    <div>
+                      <h3 class="h6 mb-0">Product Designer</h3>
+                      <small class="text-secondary">Nova Studio</small>
+                    </div>
+                  </div>
+                  <span
+                    class="badge badge-type rounded-pill align-self-start mb-3"
+                    >Contract</span
+                  >
+                  <p class="text-secondary small mb-3">
+                    Shape end-to-end product experiences and design systems for
+                    a fast-growing SaaS platform.
+                  </p>
+                  <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="tag">Hybrid</span>
+                    <span class="tag">Figma</span>
+                    <span class="tag">UX</span>
+                  </div>
+                  <a href="#" class="btn btn-primary mt-auto">Apply Now</a>
+                </div>
+              </article>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <article class="job-card card h-100 rounded-4 shadow-sm">
+                <div class="card-body p-4 d-flex flex-column">
+                  <div class="d-flex align-items-center gap-3 mb-3">
+                    <span class="company-logo bg-primary-subtle text-primary"
+                      >BL</span
+                    >
+                    <div>
+                      <h3 class="h6 mb-0">Backend Engineer</h3>
+                      <small class="text-secondary">BlueLeaf</small>
+                    </div>
+                  </div>
+                  <span
+                    class="badge badge-type rounded-pill align-self-start mb-3"
+                    >Full-time</span
+                  >
+                  <p class="text-secondary small mb-3">
+                    Design and scale resilient APIs and data pipelines with
+                    Node.js and PostgreSQL.
+                  </p>
+                  <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="tag">On-site</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">SQL</span>
+                  </div>
+                  <a href="#" class="btn btn-primary mt-auto">Apply Now</a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Top Companies ===================== -->
+      <section id="companies" class="py-5">
+        <div class="container">
+          <div class="text-center mb-5">
+            <h2 class="h3 fw-800 mb-1">Top companies hiring now</h2>
+            <p class="text-secondary mb-0">
+              Explore roles at companies that are hiring actively.
+            </p>
+          </div>
+          <div class="row g-4">
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="#jobs" class="nk-company-card">
+                <span class="company-logo bg-primary-subtle text-primary"
+                  >AC</span
+                >
+                <strong class="mt-3 d-block">Acme Corp</strong>
+                <small
+                  class="text-secondary d-flex align-items-center gap-1 justify-content-center"
+                >
+                  <i
+                    class="bi bi-star-fill text-warning"
+                    aria-hidden="true"
+                  ></i>
+                  4.3 | 1.2k reviews
+                </small>
+                <span class="badge badge-type rounded-pill mt-2">120 jobs</span>
+              </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="#jobs" class="nk-company-card">
+                <span class="company-logo bg-primary-subtle text-primary"
+                  >NV</span
+                >
+                <strong class="mt-3 d-block">Nova Studio</strong>
+                <small
+                  class="text-secondary d-flex align-items-center gap-1 justify-content-center"
+                >
+                  <i
+                    class="bi bi-star-fill text-warning"
+                    aria-hidden="true"
+                  ></i>
+                  4.1 | 860 reviews
+                </small>
+                <span class="badge badge-type rounded-pill mt-2">58 jobs</span>
+              </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="#jobs" class="nk-company-card">
+                <span class="company-logo bg-primary-subtle text-primary"
+                  >BL</span
+                >
+                <strong class="mt-3 d-block">BlueLeaf</strong>
+                <small
+                  class="text-secondary d-flex align-items-center gap-1 justify-content-center"
+                >
+                  <i
+                    class="bi bi-star-fill text-warning"
+                    aria-hidden="true"
+                  ></i>
+                  4.5 | 2.0k reviews
+                </small>
+                <span class="badge badge-type rounded-pill mt-2">94 jobs</span>
+              </a>
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+              <a href="#jobs" class="nk-company-card">
+                <span class="company-logo bg-primary-subtle text-primary"
+                  >ZN</span
+                >
+                <strong class="mt-3 d-block">Zenith</strong>
+                <small
+                  class="text-secondary d-flex align-items-center gap-1 justify-content-center"
+                >
+                  <i
+                    class="bi bi-star-fill text-warning"
+                    aria-hidden="true"
+                  ></i>
+                  3.9 | 540 reviews
+                </small>
+                <span class="badge badge-type rounded-pill mt-2">33 jobs</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== For Employers (Why Choose Us) ===================== -->
+      <section id="whychooseus" class="py-5 bg-light-subtle">
+        <div class="container">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+              <span class="section-eyebrow">For Employers</span>
+              <h2 class="fw-800 mt-2 mb-3">
+                Welcome to the job portal built for hiring teams
+              </h2>
+              <p class="text-secondary mb-4">
+                Post a role in minutes, reach thousands of qualified candidates,
+                and manage your entire pipeline in one place. We handle the
+                sourcing so you can focus on choosing the right people.
+              </p>
+              <ul class="list-unstyled d-grid gap-3 mb-4">
+                <li class="d-flex align-items-start gap-3">
+                  <span class="check-icon"
+                    ><i class="bi bi-check-lg" aria-hidden="true"></i
+                  ></span>
+                  <span
+                    >Reach over 8,000 active employers and a growing talent
+                    pool.</span
+                  >
+                </li>
+                <li class="d-flex align-items-start gap-3">
+                  <span class="check-icon"
+                    ><i class="bi bi-check-lg" aria-hidden="true"></i
+                  ></span>
+                  <span
+                    >Smart matching surfaces the most relevant candidates
+                    first.</span
+                  >
+                </li>
+                <li class="d-flex align-items-start gap-3">
+                  <span class="check-icon"
+                    ><i class="bi bi-check-lg" aria-hidden="true"></i
+                  ></span>
+                  <span
+                    >Manage applications, interviews, and offers from one
+                    dashboard.</span
+                  >
+                </li>
+              </ul>
+              <a href="#" class="btn btn-lg btn-primary">Post a Job</a>
+            </div>
+            <div class="col-lg-6">
+              <img
+                class="img-fluid rounded-4 shadow-lg"
+                src="https://images.pexels.com/photos/39457179/pexels-photo-39457179.jpeg"
+                alt="A hiring manager reviewing candidate applications on a laptop"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Services ===================== -->
+      <section id="services" class="py-5">
+        <div class="container">
+          <div class="text-center mb-5">
+            <h2 class="h3 fw-800 mb-1">Grow your career with our services</h2>
+            <p class="text-secondary mb-0">
+              Give your job search a head start.
+            </p>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+              <div class="nk-service-card h-100">
+                <span class="nk-service-icon"
+                  ><i class="bi bi-file-earmark-person" aria-hidden="true"></i
+                ></span>
+                <h3 class="h6 mt-3">Resume Writing</h3>
+                <p class="text-secondary small mb-3">
+                  Get a professionally written resume that gets you noticed by
+                  recruiters.
+                </p>
+                <a href="#" class="link-tag"
+                  >Know more <i class="bi bi-arrow-right" aria-hidden="true"></i
+                ></a>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="nk-service-card h-100">
+                <span class="nk-service-icon"
+                  ><i class="bi bi-rocket-takeoff" aria-hidden="true"></i
+                ></span>
+                <h3 class="h6 mt-3">Priority Applicant</h3>
+                <p class="text-secondary small mb-3">
+                  Be the first to apply and get up to 3x more recruiter views on
+                  your profile.
+                </p>
+                <a href="#" class="link-tag"
+                  >Know more <i class="bi bi-arrow-right" aria-hidden="true"></i
+                ></a>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="nk-service-card h-100">
+                <span class="nk-service-icon"
+                  ><i class="bi bi-mortarboard" aria-hidden="true"></i
+                ></span>
+                <h3 class="h6 mt-3">Learning &amp; Courses</h3>
+                <p class="text-secondary small mb-3">
+                  Upskill with industry-recognised courses and stay ahead in
+                  your career.
+                </p>
+                <a href="#" class="link-tag"
+                  >Know more <i class="bi bi-arrow-right" aria-hidden="true"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Testimonials ===================== -->
+      <section id="testimonials" class="py-5 bg-light-subtle">
+        <div class="container">
+          <div class="text-center mb-5">
+            <span class="section-eyebrow">Reviews</span>
+            <h2 class="fw-800 mt-2">Loved by candidates and employers</h2>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+              <figure class="testimonial-card card h-100 rounded-4 shadow-sm">
+                <div class="card-body p-4">
+                  <blockquote class="text-secondary mb-4">
+                    “JobConnect matched me with my dream role in under two
+                    weeks. The process was smooth and genuinely
+                    candidate-friendly.”
+                  </blockquote>
+                  <figcaption class="d-flex align-items-center gap-3">
+                    <img
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20%2810%29.webp"
+                      class="rounded-circle"
+                      alt="Portrait of Anna Smith"
+                      width="52"
+                      height="52"
+                    />
+                    <span>
+                      <strong class="d-block">Anna Smith</strong>
+                      <small class="text-secondary">Product Manager</small>
+                    </span>
+                  </figcaption>
+                </div>
+              </figure>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <figure class="testimonial-card card h-100 rounded-4 shadow-sm">
+                <div class="card-body p-4">
+                  <blockquote class="text-secondary mb-4">
+                    “As a hiring manager, the quality of applicants was a step
+                    above every other board we had tried. Highly recommended.”
+                  </blockquote>
+                  <figcaption class="d-flex align-items-center gap-3">
+                    <img
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20%289%29.webp"
+                      class="rounded-circle"
+                      alt="Portrait of David Lee"
+                      width="52"
+                      height="52"
+                    />
+                    <span>
+                      <strong class="d-block">David Lee</strong>
+                      <small class="text-secondary">Engineering Lead</small>
+                    </span>
+                  </figcaption>
+                </div>
+              </figure>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <figure class="testimonial-card card h-100 rounded-4 shadow-sm">
+                <div class="card-body p-4">
+                  <blockquote class="text-secondary mb-4">
+                    “I posted a role on Friday and had a shortlist of strong
+                    candidates by Monday morning. Incredible turnaround.”
+                  </blockquote>
+                  <figcaption class="d-flex align-items-center gap-3">
+                    <img
+                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20%288%29.webp"
+                      class="rounded-circle"
+                      alt="Portrait of Maria Garcia"
+                      width="52"
+                      height="52"
+                    />
+                    <span>
+                      <strong class="d-block">Maria Garcia</strong>
+                      <small class="text-secondary">Founder</small>
+                    </span>
+                  </figcaption>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== App Download / CTA ===================== -->
+      <section class="py-5">
+        <div class="container">
+          <div class="cta-panel text-white rounded-4 p-4 p-lg-6 shadow-lg">
+            <div class="row align-items-center g-4">
+              <div class="col-lg-8 text-center text-lg-start">
+                <h2 class="fw-800 mb-3">
+                  Search &amp; apply to jobs from our mobile app
+                </h2>
+                <p class="lead mb-4 opacity-75">
+                  Get the JobConnect app and never miss a relevant opening
+                  again.
+                </p>
+                <div
+                  class="d-flex flex-column flex-sm-row justify-content-center justify-content-lg-start gap-3"
+                >
+                  <a href="#" class="btn btn-light btn-lg px-4"
+                    ><i class="bi bi-google-play me-2" aria-hidden="true"></i
+                    >Google Play</a
+                  >
+                  <a href="#" class="btn btn-outline-light btn-lg px-4"
+                    ><i class="bi bi-apple me-2" aria-hidden="true"></i>App
+                    Store</a
+                  >
+                </div>
+              </div>
+              <div class="col-lg-4 text-center">
+                <i class="bi bi-phone nk-cta-phone" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===================== Footer ===================== -->
+    <footer class="footer py-5">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <a
+              class="navbar-brand d-flex align-items-center gap-2 fw-bold text-white mb-3"
+              href="#home"
+            >
+              <span class="brand-logo"
+                ><i class="bi bi-briefcase-fill" aria-hidden="true"></i
+              ></span>
+              <span>Job<span class="text-primary">Connect</span></span>
+            </a>
+            <p class="small">
+              Where talent meets opportunity. Find your next role or hire the
+              people who will build your future.
+            </p>
+            <div class="d-flex gap-2 mt-3">
+              <a
+                href="#"
+                class="social-link"
+                aria-label="JobConnect on Twitter"
+              >
+                <i class="bi bi-twitter-x" aria-hidden="true"></i>
+              </a>
+              <a
+                href="#"
+                class="social-link"
+                aria-label="JobConnect on LinkedIn"
+              >
+                <i class="bi bi-linkedin" aria-hidden="true"></i>
+              </a>
+              <a
+                href="#"
+                class="social-link"
+                aria-label="JobConnect on Facebook"
+              >
+                <i class="bi bi-facebook" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+          <div class="col-6 col-lg-2">
+            <h3 class="h6 text-white mb-3">Candidates</h3>
+            <ul class="list-unstyled footer-links">
+              <li><a href="#jobs">Browse Jobs</a></li>
+              <li><a href="#companies">Companies</a></li>
+              <li><a href="#services">Career Advice</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-2">
+            <h3 class="h6 text-white mb-3">Employers</h3>
+            <ul class="list-unstyled footer-links">
+              <li><a href="#whychooseus">Post a Job</a></li>
+              <li><a href="#">Pricing</a></li>
+              <li><a href="#">Resources</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-2">
+            <h3 class="h6 text-white mb-3">Company</h3>
+            <ul class="list-unstyled footer-links">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Careers</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-2">
+            <h3 class="h6 text-white mb-3">Legal</h3>
+            <ul class="list-unstyled footer-links">
+              <li><a href="#">Privacy</a></li>
+              <li><a href="#">Terms</a></li>
+              <li><a href="#">Cookies</a></li>
+            </ul>
+          </div>
+        </div>
+        <hr class="my-4 border-secondary" />
+        <p class="small mb-0 text-center">
+          &copy; 2026 JobConnect. All rights reserved.
+        </p>
+      </div>
+    </footer>
+    <script>
+      (() => {
+        const toggle = document.getElementById("themeToggle");
+        const label = document.getElementById("themeLabel");
+        const icon = document.getElementById("themeIcon");
+        const themeColor = document.getElementById("themeColor");
+
+        const applyTheme = (theme) => {
+          const isDark = theme === "dark";
+          const nextTheme = isDark ? "light" : "dark";
+
+          document.documentElement.classList.toggle("dark", isDark);
+          document.documentElement.style.colorScheme = theme;
+          toggle.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
+          toggle.setAttribute("aria-pressed", String(isDark));
+          label.textContent = `${nextTheme === "dark" ? "Dark" : "Light"} mode`;
+          icon.classList.toggle("bi-moon-stars-fill", !isDark);
+          icon.classList.toggle("bi-sun-fill", isDark);
+          themeColor.content = isDark ? "#0a1020" : "#ffffff";
+          localStorage.setItem("jobconnect-theme", theme);
+        };
+
+        applyTheme(
+          document.documentElement.classList.contains("dark") ? "dark" : "light",
+        );
+        toggle.addEventListener("click", () => {
+          applyTheme(
+            document.documentElement.classList.contains("dark")
+              ? "light"
+              : "dark",
+          );
+        });
+      })();
+    </script>
+  </body>
+</html>
